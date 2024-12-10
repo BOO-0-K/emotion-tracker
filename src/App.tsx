@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Layout from './components/Layout';
 import Login from './routes/Login';
 import NotFound from './routes/NotFound';
+import Home from './routes/Home';
 
 const router = createBrowserRouter([
   {
@@ -12,18 +13,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <div>Home</div>,
+        element: <Home />,
       },
       {
         path: 'new',
         element: <div>New</div>,
       },
       {
-        path: 'diary',
+        path: 'diary/:id',
         element: <div>Diary</div>,
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
         element: <div>Edit</div>,
       },
       {
@@ -60,11 +61,11 @@ const Wrapper = styled.div`
 function App() {
   return (
     <>
+      <Helmet>
+        <title>감정 일기장</title>
+        <link href='https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap' rel='stylesheet'></link>
+      </Helmet>
       <Wrapper>
-        <Helmet>
-          <title>감정 일기장</title>
-          <link href='https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap' rel='stylesheet'></link>
-        </Helmet>
         <RouterProvider router={router} future={{ v7_startTransition: true }} />
       </Wrapper>
     </>
