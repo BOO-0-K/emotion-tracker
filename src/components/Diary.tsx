@@ -10,6 +10,9 @@ const Wrapper = styled.div`
     border-bottom: 1px solid #e2e2e2;
     display: flex;
     justify-content: space-between;
+    &:last-child {
+        border-bottom: none;
+    }
 `;
 
 const ImgWrapper = styled.div<{ $bgColor: string }>`
@@ -38,6 +41,12 @@ const Date = styled.div`
 
 const Title = styled.div`
     font-size: 18px;
+    margin-bottom: 5px;
+`;
+
+const Author = styled.div`
+    font-size: 12px;
+    opacity: 0.8;
 `;
 
 const ButtonWrapper = styled.div`
@@ -63,6 +72,7 @@ function Diary(data: IDiary) {
             <InfoWrapper onClick={goDetail}>
                 <Date>{data.today}</Date>
                 <Title>{data.title}</Title>
+                <Author>{data.username}</Author>
             </InfoWrapper>
             <ButtonWrapper>
                 <Button

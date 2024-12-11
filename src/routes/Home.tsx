@@ -19,6 +19,7 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
     flex: 1;
+    overflow: hidden;
 `;
 
 const NoDataWrapper = styled.div`

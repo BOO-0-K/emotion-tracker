@@ -4,10 +4,13 @@ import { useEffect, useState } from 'react';
 import Diary from './Diary';
 import Menu from './Menu';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    height: 100%;
+    overflow-y: auto;
+`;
 
 const ListWrapper = styled.div`
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-bottom: 30px;
 `;
 
@@ -17,8 +20,8 @@ function Diaries({ posts }: IDiaries) {
 
     useEffect(() => {
         const compare = (a: IDiary, b: IDiary) => {
-            const aDate = new Date(a.createdAt);
-            const bDate = new Date(b.createdAt);
+            const aDate = new Date(a.today);
+            const bDate = new Date(b.today);
 
             if (sortType === 'desc') {
                 return bDate.getTime() - aDate.getTime();
