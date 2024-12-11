@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
-  input {
+  input, textarea {
     outline: none;
   }
 `;

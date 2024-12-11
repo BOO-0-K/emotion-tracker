@@ -6,6 +6,7 @@ import Login from './routes/Login';
 import NotFound from './routes/NotFound';
 import Home from './routes/Home';
 import ProtectedRoute from './components/ProtectedRoute';
+import New from './routes/New';
 
 
 const router = createBrowserRouter([
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'new',
-        element: <div>New</div>,
+        element: <New />,
       },
       {
         path: 'diary/:id',

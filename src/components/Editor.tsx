@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import Button from './Button';
-import { emotionList, IEmotion } from '../utils/util';
-import EmotionItem from './EmotionItem';
+import { emotionList, getFormattedDate } from '../utils/util';
+import EmotionItem, { IEmotion } from './EmotionItem';
+import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
 
 const EditorWrapper = styled.div`
     margin-top: 20px;
@@ -22,20 +24,22 @@ const InputWrapper = styled.div`
         border: none;
         border-radius: 5px;
         background-color: ${(props) => props.theme.inputColor};
-        padding: 20px;
         font-size: 20px;
         font-family: Hi Melody, serif;
     }
-    input {
-        padding: 10px 0px;
-        cursor: pointer;
-    }
-    textarea {
-        width: 100%;
-        min-height: 200px;
-        box-sizing: border-box;
-        resize: vertical;
-    }
+`;
+
+const Input = styled.input`
+    padding: 10px 20px;
+    cursor: pointer;
+`;
+
+const Textarea = styled.textarea`
+    width: 100%;
+    padding: 20px;
+    min-height: 200px;
+    box-sizing: border-box;
+    resize: vertical;
 `;
 
 const EmotionListWrapper = styled.div`
@@ -50,13 +54,65 @@ const ButtonWrapper = styled.div`
     align-items: center;
 `;
 
-function Editor() {
+interface IEditor {
+    initData?: object;
+    onSubmit: () => void;
+}
+
+interface IPost {
+    today: string;
+    status: number;
+    content: string;
+}
+
+function Editor({ initData, onSubmit }: IEditor) {
+    const navigate = useNavigate();
+
+    const [state, setState] = useState<IPost>({
+        today: getFormattedDate(new Date()),
+        status: 1,
+        content: '',
+    });
+
+    useEffect(() => {
+        console.log(state);
+    }, [state]);
+
+    const handleChangeDate = (event: React.FormEvent<HTMLInputElement>) => {
+        setState({
+            ...state,
+            today: event.currentTarget.value,
+        });
+    }
+
+    const handleChangeStatus = useCallback((emotionId: number) => {
+        setState((state) => ({
+            ...state,
+            status: emotionId,
+        }));
+    }, []);
+
+    const handleChangeContent = (event: React.FormEvent<HTMLTextAreaElement>) => {
+        setState({
+            ...state,
+            content: event.currentTarget.value,
+        });
+    }
+
+    const handleOnGoBack = () => {
+        navigate(-1);
+    };
+
+    const handleSubmit = () => {
+        onSubmit();
+    };
+
     return(
         <EditorWrapper>
             <EditorSection>
                 <Title>오늘의 날짜</Title>
                 <InputWrapper>
-                    <input type="date" />
+                    <Input type="date" value={state.today} onChange={handleChangeDate} />
                 </InputWrapper>
             </EditorSection>
             <EditorSection>
@@ -65,7 +121,12 @@ function Editor() {
                     <EmotionListWrapper>
                         {
                             emotionList.map((emotion: IEmotion) => (
-                                <EmotionItem key={emotion.id} {...emotion} />
+                                <EmotionItem 
+                                    key={emotion.id} 
+                                    {...emotion}
+                                    onClick={handleChangeStatus}
+                                    isSelected={state.status === emotion.id}
+                                />
                             ))
                         }
                     </EmotionListWrapper>
@@ -74,13 +135,17 @@ function Editor() {
             <EditorSection>
                 <Title>오늘의 일기</Title>
                 <InputWrapper>
-                    <textarea />
+                    <Textarea
+                        placeholder='오늘 하루는 어땠나요?'
+                        value={state.content}
+                        onChange={handleChangeContent}
+                    />
                 </InputWrapper>
             </EditorSection>
             <EditorSection>
                 <ButtonWrapper>
-                    <Button text={'취소하기'} colorType={'DEFAULT'} onClick={()=>{}} />
-                    <Button text={'작성하기'} colorType={'POSITIVE'} onClick={()=>{}} />
+                    <Button text={'취소하기'} colorType={'DEFAULT'} onClick={handleOnGoBack} />
+                    <Button text={'작성하기'} colorType={'POSITIVE'} onClick={handleSubmit} />
                 </ButtonWrapper>
             </EditorSection>
         </EditorWrapper>
