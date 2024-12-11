@@ -15,14 +15,14 @@ function Home() {
                 title={'홈'}
                 leftChild={
                     <Button 
-                        type={'DEFAULT'} 
+                        colorType={'DEFAULT'} 
                         text={'<'}
                         onClick={() => {}}
                     />
                 }
                 rightChild={
                     <Button 
-                        type={'DEFAULT'} 
+                        colorType={'DEFAULT'} 
                         text={'>'}
                         onClick={() => {}}
                     />

@@ -5,11 +5,15 @@ import Layout from './components/Layout';
 import Login from './routes/Login';
 import NotFound from './routes/NotFound';
 import Home from './routes/Home';
+import ProtectedRoute from './components/ProtectedRoute';
+
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (<ProtectedRoute>
+      <Layout />
+    </ProtectedRoute>),
     children: [
       {
         path: '',

@@ -79,8 +79,8 @@ function Editor() {
             </EditorSection>
             <EditorSection>
                 <ButtonWrapper>
-                    <Button text={'취소하기'} type={'DEFAULT'} onClick={()=>{}} />
-                    <Button text={'작성하기'} type={'POSITIVE'} onClick={()=>{}} />
+                    <Button text={'취소하기'} colorType={'DEFAULT'} onClick={()=>{}} />
+                    <Button text={'작성하기'} colorType={'POSITIVE'} onClick={()=>{}} />
                 </ButtonWrapper>
             </EditorSection>
         </EditorWrapper>

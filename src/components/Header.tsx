@@ -30,8 +30,8 @@ const SHeaderRightItem = styled.div`
 
 interface IHeader {
     title: string;
-    leftChild: ReactNode;
-    rightChild: ReactNode;
+    leftChild?: ReactNode;
+    rightChild?: ReactNode;
 }
 
 function Header({ title, leftChild, rightChild }: IHeader) {

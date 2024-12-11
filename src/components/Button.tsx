@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SButton = styled.button<{ color: string }>`
+const SButton = styled.button<{ color: string, disabled: boolean }>`
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -11,14 +11,16 @@ const SButton = styled.button<{ color: string }>`
     background-color: ${(props) => props.color};
     
     &:hover {
-        opacity: 0.8;
+        opacity: ${(props) => props.disabled ? 1 : 0.8};
     }
 `;
 
 interface IButton {
     text: string;
-    type: keyof typeof ButtonType;
-    onClick: () => void;
+    type?: 'submit' | 'button' | 'reset';
+    disabled?: boolean;
+    colorType: keyof typeof ButtonType;
+    onClick?: () => void;
 }
 
 enum ButtonType {
@@ -27,11 +29,13 @@ enum ButtonType {
     'DEFAULT' = '#ececec',
 }
 
-function Button({ text, type, onClick }: IButton) {
+function Button({ text, type, disabled, colorType, onClick }: IButton) {
     return (
         <SButton 
-            color={ButtonType[type]}
+            color={ButtonType[colorType]}
+            type={type ?? 'button'}
             onClick={onClick}
+            disabled={disabled ?? false}
         >
             {text}
         </SButton>
