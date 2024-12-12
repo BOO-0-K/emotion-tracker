@@ -10,6 +10,7 @@ import New from './routes/New';
 import Me from './routes/Me';
 import ConfirmModal from './components/ConfirmModal';
 import AlertModal from './components/AlertModal';
+import Edit from './routes/Edit';
 
 
 const router = createBrowserRouter([
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'edit/:id',
-        element: <div>Edit</div>,
+        element: <Edit />,
       },
       {
         path: 'me',

@@ -60,7 +60,7 @@ const ButtonWrapper = styled.div`
 `;
 
 interface IEditor {
-    initData?: object;
+    initData?: IPost;
     onSubmit: (data: IPost) => void;
     disabled: boolean;
 }
@@ -81,6 +81,14 @@ function Editor({ initData, onSubmit, disabled }: IEditor) {
         status: 1,
         content: '',
     });
+
+    useEffect(() => {
+        if (initData) {
+            setState({
+                ...initData,
+            });
+        }
+    }, [initData]);
 
     const handleChangeDate = (event: React.FormEvent<HTMLInputElement>) => {
         setState({
@@ -162,7 +170,7 @@ function Editor({ initData, onSubmit, disabled }: IEditor) {
             <EditorSection>
                 <ButtonWrapper>
                     <Button text={'취소하기'} colorType={'DEFAULT'} onClick={handleOnGoBack} disabled={disabled} />
-                    <Button text={'작성하기'} colorType={'POSITIVE'} onClick={handleSubmit} disabled={disabled} />
+                    <Button text={'저장하기'} colorType={'POSITIVE'} onClick={handleSubmit} disabled={disabled} />
                 </ButtonWrapper>
             </EditorSection>
         </EditorWrapper>

@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { QueryFunctionContext, useMutation, useQuery } from '@tanstack/react-query';
 import api from '../utils/api';
 import { IPost } from '../components/Editor';
 import { IModalOpen, useModal } from './useModal';
@@ -35,6 +35,13 @@ interface ICreateResponseData {
     id: number;
 }
 
+interface IUpdateResponse {
+    statusCode: number;
+    message: string;
+}
+
+interface QueryData extends QueryFunctionContext<[string, number]> {}
+
 // 모든 일기 리스트 API 함수
 const fetchDiaries = ({ startDate, endDate }: ISearch) => {
     return api.get(`/posts?startDate=${startDate}&endDate=${endDate}`);
@@ -48,7 +55,23 @@ export const useDiariesQuery = ({ startDate, endDate }: ISearch) => {
             return response.data as IDiaries;
         },
     });
-}
+};
+
+// 일기 상세 API 함수
+const fetchDiary = (queryData: QueryData) => {
+    const id = queryData.queryKey[1];
+    return api.get(`/posts/${id}`);
+};
+// 일기 상세 커스텀 훅
+export const useDiaryQuery = (id: number) => {
+    return useQuery({
+        queryKey: ['diary', id],
+        queryFn: fetchDiary,
+        select: (response) => {
+            return response.data.post as IDiary;
+        }
+    });
+};
 
 // 일기 추가 API 함수
 const fetchCreateDiary = (postData: IPost): Promise<ICreateResponse> => {
@@ -88,4 +111,44 @@ export const useCreateDiaryMutation = () => {
             open(modal);
         },
     })
-}
+};
+
+// 일기 수정 API 함수
+const fetchUpdateDiary = (id: number, postData: IPost): Promise<IUpdateResponse> => {
+    return api.patch(`/posts/${id}`, postData);
+};
+// 일기 추가 커스텀 훅
+export const useUpdateDiaryMutation = (id: number) => {
+    const { open, close } = useModal();
+
+    const navigate = useNavigate();
+
+    const goDetail = (id: number) => {
+        if (id) {
+            navigate(`/diary/${id}`);
+        } else {
+            navigate('/');
+        }
+        close();
+    };
+
+    return useMutation<IUpdateResponse, Error, IPost>({
+        mutationFn: (postData) => fetchUpdateDiary(id, postData),
+        onSuccess: (response) => {
+            const modal: IModalOpen = {
+                title: '수정되었습니다.',
+                type: 'C',
+                callBack: () => goDetail(id),
+            };
+            open(modal);
+        },
+        onError: (error) => {
+            const modal: IModalOpen = {
+                title: '모든 내용을 작성해주세요.',
+                type: 'C',
+                callBack: close,
+            };
+            open(modal);
+        },
+    })
+};
