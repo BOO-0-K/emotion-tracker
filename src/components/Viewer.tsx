@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { emotionList, getEmotionColorById } from '../utils/util';
+import Comment from './Comment';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -101,6 +102,7 @@ function Viewer({ title, content, emotionId, author }: IViewer) {
                     <Content>{content}</Content>
                 </ContentWrapper>
             </Section>
+            <Comment />
         </Wrapper>
     );
 }

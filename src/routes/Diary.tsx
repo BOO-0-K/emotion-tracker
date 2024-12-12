@@ -9,6 +9,7 @@ import Viewer from '../components/Viewer';
 import { useEffect } from 'react';
 import { IModalOpen, useModal } from '../hooks/useModal';
 import Loading from '../components/Loading';
+import Comment from '../components/Comment';
 
 const Wrapper = styled.div`
     height: 100%;
