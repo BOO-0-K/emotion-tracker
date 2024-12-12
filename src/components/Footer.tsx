@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Button from './Button';
+import { useLogout } from '../hooks/useAuth';
 
 const SFooter = styled.div`
     padding: 20px 0px;
@@ -15,11 +16,14 @@ const CopyRightText = styled.span`
 `;
 
 function Footer() {
+    const { logout } = useLogout();
+
     return (
         <SFooter>
             <Button
                 text={'로그아웃'}
                 colorType={'NEGATIVE'}
+                onClick={logout}
             />
             <CopyRightText>©palette.black</CopyRightText>
             <Button 

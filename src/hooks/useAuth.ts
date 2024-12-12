@@ -2,6 +2,7 @@ import { useSetRecoilState } from 'recoil';
 import api from '../utils/api';
 import { tokenState } from '../recoil/tokenAtom';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 export interface IAuth {
     username: string;
@@ -26,4 +27,18 @@ export const useSigninMutation = () => {
             // console.log(error);
         }
     })
+}
+
+// 로그아웃 함수
+export const useLogout = () => {
+    const setAccessToken = useSetRecoilState(tokenState);
+    const navigate = useNavigate();
+
+    const logout = () => {
+        setAccessToken(undefined);
+        sessionStorage.removeItem('sessionStorage');
+        navigate('/login');
+    };
+
+    return { logout };
 }

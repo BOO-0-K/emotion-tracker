@@ -17,7 +17,7 @@ const SelectBox = styled.select`
     border: none;
     border-radius: 5px;
     background-color: ${(props) => props.theme.inputColor};
-    padding: 10px 20px;
+    padding: 12px 20px;
     cursor: pointer;
     font-size: 18px;
     font-family: Hi Melody, serif;
