@@ -11,6 +11,7 @@ import Me from './routes/Me';
 import ConfirmModal from './components/ConfirmModal';
 import AlertModal from './components/AlertModal';
 import Edit from './routes/Edit';
+import Diary from './routes/Diary';
 
 
 const router = createBrowserRouter([
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'diary/:id',
-        element: <div>Diary</div>,
+        element: <Diary />,
       },
       {
         path: 'edit/:id',

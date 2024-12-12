@@ -2,15 +2,20 @@ import { atom, selector } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { IMe } from "../hooks/useAuth";
 
-const { persistAtom } = recoilPersist({
+const { persistAtom: persistTokenAtom } = recoilPersist({
     key: 'sessionStorage',
+    storage: sessionStorage,
+});
+
+const { persistAtom: persistMeAtom } = recoilPersist({
+    key: 'storage',
     storage: sessionStorage,
 });
 
 export const tokenState = atom<string | undefined>({
     key: 'token',
     default: undefined,
-    effects_UNSTABLE: [persistAtom],
+    effects_UNSTABLE: [persistTokenAtom],
 });
 
 export const isLoginSelector = selector({
@@ -21,6 +26,7 @@ export const isLoginSelector = selector({
 export const meState = atom<IMe>({
     key: 'me',
     default: undefined,
+    effects_UNSTABLE: [persistMeAtom],
 });
 
 export const myIdSelector = selector({

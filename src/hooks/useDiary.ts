@@ -3,6 +3,7 @@ import api from '../utils/api';
 import { IPost } from '../components/Editor';
 import { IModalOpen, useModal } from './useModal';
 import { useNavigate } from 'react-router-dom';
+import { error } from 'console';
 
 interface ISearch {
     startDate: string;
@@ -150,5 +151,37 @@ export const useUpdateDiaryMutation = (id: number) => {
             };
             open(modal);
         },
+    })
+};
+
+// 일기 삭제 API 함수
+const fetchDeleteDiary = (id: number) => {
+    return api.delete(`/posts/${id}`);
+};
+// 일기 삭제 커스텀 훅
+export const useDeleteDiaryMutation = () => {
+    const { open, close } = useModal();
+
+    const navigate = useNavigate();
+
+    const goHome = () => {
+        navigate('/');
+        close();
+    };
+
+    return useMutation({
+        mutationFn: fetchDeleteDiary,
+        onSuccess: (response) => {
+            console.log(response);
+            const modal: IModalOpen = {
+                title: '삭제되었습니다.',
+                type: 'C',
+                callBack: goHome,
+            };
+            open(modal);
+        },
+        onError: (error) => {
+            console.log(error);
+        }
     })
 };

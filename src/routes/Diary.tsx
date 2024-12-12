@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import Editor, { IPost } from '../components/Editor';
-import { useDeleteDiaryMutation, useDiaryQuery, useUpdateDiaryMutation } from '../hooks/useDiary';
-import Loading from '../components/Loading';
-import { IModalOpen, useModal } from '../hooks/useModal';
-import { useEffect, useState } from 'react';
+import { useDiaryQuery } from '../hooks/useDiary';
 import { useRecoilValue } from 'recoil';
 import { myIdSelector } from '../recoil/tokenAtom';
+import Viewer from '../components/Viewer';
+import { useEffect } from 'react';
+import { IModalOpen, useModal } from '../hooks/useModal';
+import Loading from '../components/Loading';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     padding: 0px 20px;
 `;
 
-function Edit() {
+function Diary() {
     const navigate = useNavigate();
 
     const myId = useRecoilValue(myIdSelector);
@@ -24,45 +24,18 @@ function Edit() {
     const { id } = useParams();
     const diaryId = id ? +id : 0;
 
-    const { data, isLoading, isError } = useDiaryQuery(diaryId);
-    const { mutate, isPending } = useUpdateDiaryMutation(diaryId);
-    const { mutate: deleteMutate, isPending: disabledDeleteBtn } = useDeleteDiaryMutation();
-
-    const [initData, setInitData] = useState<IPost | undefined>(undefined);
-
-    useEffect(() => {
-        if (data) {
-            setInitData({
-                title: data.title,
-                today: data.today,
-                status: data.status,
-                content: data.content,
-            });
-        }
-    }, [data]);
-
     const { open, close } = useModal();
+
+    const { data, isLoading, isError } = useDiaryQuery(diaryId);
 
     const goBack = () => {
         navigate(-1);
     };
 
-    const onClickDelete = () => {
-        const confirm: IModalOpen = {
-            title: '정말 삭제할까요?',
-            type: 'A',
-            callBack: () => {
-                deleteMutate(diaryId);
-            },
-        };
-
-        open(confirm);
+    const goEdit = () => {
+        navigate(`/edit/${id}`);
     };
-
-    const onSubmit = (editData: IPost) => {
-        mutate(editData);
-    };
-
+    
     useEffect(() => {
         const goHome = () => {
             navigate('/');
@@ -83,7 +56,7 @@ function Edit() {
     return (
         <Wrapper>
             <Header
-                title='내 일기 수정하기'
+                title={`${data?.today} 기록`}
                 leftChild={
                     <Button
                         text='< 뒤로 가기'
@@ -94,24 +67,22 @@ function Edit() {
                 rightChild={
                     myId === data?.userId && (
                         <Button
-                            text='삭제하기'
-                            colorType='NEGATIVE'
-                            onClick={onClickDelete}
-                            disabled={disabledDeleteBtn}
+                            text='수정하기'
+                            colorType='DEFAULT'
+                            onClick={goEdit}
                         />
                     )
                 }
             /> 
             {
                 data && !isLoading ? (
-                    <Editor onSubmit={onSubmit} disabled={isPending} initData={initData} />
+                    <Viewer title={data?.title} content={data?.content} emotionId={data?.status} />
                 ) : (
                     <Loading />
                 )
             }
-            
         </Wrapper>
     );
 }
 
-export default Edit;
+export default Diary;
