@@ -26,6 +26,20 @@ export interface IDiaries {
     posts: IDiary[];
 }
 
+export interface IComment {
+    id: number;
+    userId: number;
+    postId: number;
+    content: string;
+    username: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface IComments {
+    comments: IComment[];
+}
+
 interface ICreateResponse {
     statusCode: number;
     message: string;
@@ -39,6 +53,11 @@ interface ICreateResponseData {
 interface IUpdateResponse {
     statusCode: number;
     message: string;
+}
+
+export interface ICreateComment {
+    postId: number;
+    content: string;
 }
 
 interface QueryData extends QueryFunctionContext<[string, number]> {}
@@ -184,4 +203,53 @@ export const useDeleteDiaryMutation = () => {
             console.log(error);
         }
     })
+};
+
+// 모든 댓글 리스트 API 함수
+const fetchComments = (postId: number) => {
+    return api.get(`/comments?postId=${postId}`);
+};
+// 모든 댓글 리스트 커스텀 훅
+export const useCommentsQuery = (postId: number) => {
+    return useQuery({
+        queryKey: ['comments', postId],
+        queryFn: () => fetchComments(postId),
+        select: (response) => {
+            return response.data as IComments;
+        },
+    });
+};
+
+// 댓글 추가 API 함수
+const fetchCreateComment = (commentData: ICreateComment): Promise<ICreateResponse> => {
+    return api.post('/comments', commentData);
+};
+// 댓글 추가 커스텀 훅
+export const useCreateCommentMutation = () => {
+    return useMutation<ICreateResponse, Error, ICreateComment>({
+        mutationFn: fetchCreateComment,
+        onSuccess: (response) => {
+
+        },
+        onError: (error) => {
+
+        },
+    });
+};
+
+// 댓글 삭제 API 함수
+const fetchDeleteComment = (id: number) => {
+    return api.delete(`/comments/${id}`);
+};
+// 댓글 삭제 커스텀 훅
+export const useDeleteCommentMutation = () => {
+    return useMutation({
+        mutationFn: fetchDeleteComment,
+        onSuccess: (response) => {
+
+        },
+        onError: (error) => {
+
+        },
+    });
 };

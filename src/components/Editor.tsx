@@ -15,7 +15,7 @@ const EditorSection = styled.div`
 
 const Title = styled.h4`
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 700;
 `;
 
 const InputWrapper = styled.div`
@@ -25,7 +25,7 @@ const InputWrapper = styled.div`
         border-radius: 5px;
         background-color: ${(props) => props.theme.inputColor};
         font-size: 20px;
-        font-family: 'Sunflower', sans-serif;
+        font-family: 'Nanum Gothic', serif;
     }
 `;
 

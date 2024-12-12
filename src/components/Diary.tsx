@@ -36,12 +36,13 @@ const InfoWrapper = styled.div`
 `;
 
 const Date = styled.div`
-    font-weight: 500;
+    font-weight: 700;
     font-size: 25px;
     margin-bottom: 5px;
 `;
 
 const Title = styled.div`
+    font-weight: 400;
     font-size: 18px;
     margin-bottom: 5px;
 `;

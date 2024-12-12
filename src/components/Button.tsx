@@ -7,7 +7,7 @@ const SButton = styled.button<{ color: string, disabled: boolean }>`
     padding: 10px 20px;
     font-size: 18px;
     white-space: nowrap;
-    font-family: 'Sunflower', sans-serif;
+    font-family: 'Nanum Gothic', serif;
     background-color: ${(props) => props.color};
     
     &:hover {

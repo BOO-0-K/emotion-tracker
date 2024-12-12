@@ -20,7 +20,7 @@ const SelectBox = styled.select`
     padding: 12px 20px;
     cursor: pointer;
     font-size: 18px;
-    font-family: 'Sunflower', sans-serif;
+    font-family: 'Nanum Gothic', serif;
 `;
 
 const Option = styled.option``;

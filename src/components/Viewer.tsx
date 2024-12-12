@@ -19,7 +19,7 @@ const Section = styled.section`
 
 const Title = styled.h4`
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 20px;
 `;
 
@@ -53,7 +53,7 @@ const Content = styled.p`
     padding: 20px;
     text-align: left;
     font-size: 20px;
-    font-family: 'Sunflower', sans-serif;
+    font-family: 'Nanum Gothic', serif;
     line-height: 2.5;
     white-space: pre-line;
 `;
