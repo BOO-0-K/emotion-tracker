@@ -7,6 +7,9 @@ import NotFound from './routes/NotFound';
 import Home from './routes/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import New from './routes/New';
+import Me from './routes/Me';
+import ConfirmModal from './components/ConfirmModal';
+import AlertModal from './components/AlertModal';
 
 
 const router = createBrowserRouter([
@@ -34,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'me',
-        element: <div>Me</div>,
+        element: <Me />,
       },
     ],
   },
@@ -67,12 +70,14 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>감정 일기장</title>
+        <title>DIARY</title>
         <link href='https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap' rel='stylesheet'></link>
       </Helmet>
       <Wrapper>
         <RouterProvider router={router} future={{ v7_startTransition: true }} />
       </Wrapper>
+      <ConfirmModal />
+      <AlertModal />
     </>
   );
 }

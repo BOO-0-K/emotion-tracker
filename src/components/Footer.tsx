@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Button from './Button';
 import { useLogout } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const SFooter = styled.div`
     padding: 20px 0px;
@@ -16,7 +17,13 @@ const CopyRightText = styled.span`
 `;
 
 function Footer() {
+    const navigate = useNavigate();
+
     const { logout } = useLogout();
+
+    const goMe = () => {
+        navigate('/me');
+    };
 
     return (
         <SFooter>
@@ -29,6 +36,7 @@ function Footer() {
             <Button 
                 text={'내 정보 보러가기'}
                 colorType={'DEFAULT'}
+                onClick={goMe}
             />
         </SFooter>
     );
