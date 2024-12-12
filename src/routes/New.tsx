@@ -17,7 +17,7 @@ function New() {
     const { mutate, isPending: isLoading } = useCreateDiaryMutation();
 
     const goBack = () => {
-        navigate(-1);
+        navigate('/');
     };
 
     const onSubmit = (data: IPost) => {

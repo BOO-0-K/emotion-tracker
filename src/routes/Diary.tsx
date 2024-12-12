@@ -29,7 +29,7 @@ function Diary() {
     const { data, isLoading, isError } = useDiaryQuery(diaryId);
 
     const goBack = () => {
-        navigate(-1);
+        navigate('/');
     };
 
     const goEdit = () => {

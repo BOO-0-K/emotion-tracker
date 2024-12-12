@@ -55,7 +55,7 @@ function Me() {
     const [me, setMe] = useRecoilState(meState);
 
     const goBack = () => {
-        navigate(-1);
+        navigate('/');
     };
 
     const {register, setValue, handleSubmit, formState: { errors }} = useForm<IUpdateMe>();

@@ -55,6 +55,7 @@ const Content = styled.p`
     font-family: Hi Melody, serif;
     font-weight: 400;
     line-height: 2.5;
+    white-space: pre-line;
 `;
 
 interface IViewer {

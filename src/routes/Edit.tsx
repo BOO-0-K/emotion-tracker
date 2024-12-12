@@ -44,7 +44,7 @@ function Edit() {
     const { open, close } = useModal();
 
     const goBack = () => {
-        navigate(-1);
+        navigate('/');
     };
 
     const onClickDelete = () => {
