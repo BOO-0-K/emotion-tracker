@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 
 const Section = styled.section`
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,8 +23,8 @@ const Title = styled.h4`
 `;
 
 const ImgWrapper = styled.div<{ $bgColor: string }>`
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
