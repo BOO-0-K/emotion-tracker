@@ -22,3 +22,8 @@ export const meState = atom<IMe>({
     key: 'me',
     default: undefined,
 });
+
+export const myIdSelector = selector({
+    key: 'id',
+    get: ({ get} ) => get(meState).id,
+});

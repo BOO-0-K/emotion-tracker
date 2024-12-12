@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
-import Editor from '../components/Editor';
+import Editor, { IPost } from '../components/Editor';
+import { useCreateDiaryMutation } from '../hooks/useDiary';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -13,12 +14,14 @@ const Wrapper = styled.div`
 function New() {
     const navigate = useNavigate();
 
+    const { mutate, isPending: isLoading } = useCreateDiaryMutation();
+
     const goBack = () => {
         navigate(-1);
     };
 
-    const onSubmit = () => {
-
+    const onSubmit = (data: IPost) => {
+        mutate(data);
     };
 
     return (
@@ -33,7 +36,7 @@ function New() {
                     />
                 }
             />
-            <Editor onSubmit={onSubmit} />
+            <Editor onSubmit={onSubmit} disabled={isLoading} />
         </Wrapper>
     );
 }

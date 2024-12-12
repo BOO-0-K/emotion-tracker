@@ -21,7 +21,7 @@ export interface IUpdateMe {
     isActive: boolean;
 }
 
-interface UpdateMeResponse {
+interface IUpdateMeResponse {
     statusCode: number;
     message: string;
 }
@@ -76,7 +76,7 @@ export const useMeQuery = () => {
 }
 
 // 내 정보 수정 API 호출 함수
-const fetchUpdateMe = (meData: IUpdateMe): Promise<UpdateMeResponse> => {
+const fetchUpdateMe = (meData: IUpdateMe): Promise<IUpdateMeResponse> => {
     return api.patch('/users/me', meData);
 }
 // 내 정보 수정 커스텀 훅
@@ -89,7 +89,7 @@ export const useUpdateMeMutation = () => {
         close();
     };
 
-    return useMutation<UpdateMeResponse, Error, IUpdateMe>({
+    return useMutation<IUpdateMeResponse, Error, IUpdateMe>({
         mutationFn: fetchUpdateMe,
         onSuccess: (response) => {
             const modal: IModalOpen = {
@@ -101,6 +101,6 @@ export const useUpdateMeMutation = () => {
         },
         onError: (error) => {
             // console.log(error);
-        }
+        },
     })
 }

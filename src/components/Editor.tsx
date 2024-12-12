@@ -3,14 +3,14 @@ import Button from './Button';
 import { emotionList, getFormattedDate } from '../utils/util';
 import EmotionItem, { IEmotion } from './EmotionItem';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const EditorWrapper = styled.div`
     margin-top: 20px;
 `;
 
 const EditorSection = styled.div`
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 `;
 
 const Title = styled.h4`
@@ -31,7 +31,12 @@ const InputWrapper = styled.div`
 
 const Input = styled.input`
     padding: 10px 20px;
-    cursor: pointer;
+    &[type='date'] {
+        cursor: pointer;
+    }
+    &[type='text'] {
+        width: 100%;
+    }
 `;
 
 const Textarea = styled.textarea`
@@ -56,27 +61,26 @@ const ButtonWrapper = styled.div`
 
 interface IEditor {
     initData?: object;
-    onSubmit: () => void;
+    onSubmit: (data: IPost) => void;
+    disabled: boolean;
 }
 
-interface IPost {
+export interface IPost {
+    title: string;
     today: string;
     status: number;
     content: string;
 }
 
-function Editor({ initData, onSubmit }: IEditor) {
+function Editor({ initData, onSubmit, disabled }: IEditor) {
     const navigate = useNavigate();
 
     const [state, setState] = useState<IPost>({
+        title: '',
         today: getFormattedDate(new Date()),
         status: 1,
         content: '',
     });
-
-    useEffect(() => {
-        console.log(state);
-    }, [state]);
 
     const handleChangeDate = (event: React.FormEvent<HTMLInputElement>) => {
         setState({
@@ -92,6 +96,13 @@ function Editor({ initData, onSubmit }: IEditor) {
         }));
     }, []);
 
+    const handleChangeTitle = (event: React.FormEvent<HTMLInputElement>) => {
+        setState({
+            ...state,
+            title: event.currentTarget.value,
+        });
+    };
+
     const handleChangeContent = (event: React.FormEvent<HTMLTextAreaElement>) => {
         setState({
             ...state,
@@ -104,7 +115,7 @@ function Editor({ initData, onSubmit }: IEditor) {
     };
 
     const handleSubmit = () => {
-        onSubmit();
+        onSubmit(state);
     };
 
     return(
@@ -113,6 +124,12 @@ function Editor({ initData, onSubmit }: IEditor) {
                 <Title>오늘의 날짜</Title>
                 <InputWrapper>
                     <Input type="date" value={state.today} onChange={handleChangeDate} />
+                </InputWrapper>
+            </EditorSection>
+            <EditorSection>
+                <Title>오늘의 한 줄 요약</Title>
+                <InputWrapper>
+                    <Input type="text" value={state.title} onChange={handleChangeTitle} />
                 </InputWrapper>
             </EditorSection>
             <EditorSection>
@@ -144,8 +161,8 @@ function Editor({ initData, onSubmit }: IEditor) {
             </EditorSection>
             <EditorSection>
                 <ButtonWrapper>
-                    <Button text={'취소하기'} colorType={'DEFAULT'} onClick={handleOnGoBack} />
-                    <Button text={'작성하기'} colorType={'POSITIVE'} onClick={handleSubmit} />
+                    <Button text={'취소하기'} colorType={'DEFAULT'} onClick={handleOnGoBack} disabled={disabled} />
+                    <Button text={'작성하기'} colorType={'POSITIVE'} onClick={handleSubmit} disabled={disabled} />
                 </ButtonWrapper>
             </EditorSection>
         </EditorWrapper>

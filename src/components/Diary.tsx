@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Button from './Button';
 import { getEmotionColorById, getEmotionImgById } from '../utils/util';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { myIdSelector } from '../recoil/tokenAtom';
 
 const Wrapper = styled.div`
     padding: 15px 0px;
@@ -56,6 +58,8 @@ const ButtonWrapper = styled.div`
 function Diary(data: IDiary) {
     const navigate = useNavigate();
 
+    const myId = useRecoilValue(myIdSelector);
+
     const goDetail = () => {
         navigate(`/diary/${data.id}`);
     };
@@ -75,11 +79,15 @@ function Diary(data: IDiary) {
                 <Author>{data.username}</Author>
             </InfoWrapper>
             <ButtonWrapper>
-                <Button
-                    text={'수정하기'}
-                    colorType={'DEFAULT'}
-                    onClick={goEdit}
-                />
+                {
+                    myId === data.userId && (
+                        <Button
+                            text={'수정하기'}
+                            colorType={'DEFAULT'}
+                            onClick={goEdit}
+                        />
+                    )
+                }
             </ButtonWrapper>
         </Wrapper>
     );
