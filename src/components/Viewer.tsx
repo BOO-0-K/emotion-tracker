@@ -4,7 +4,7 @@ import { emotionList, getEmotionColorById } from '../utils/util';
 const Wrapper = styled.div`
     height: 100%;
     width: 100%;
-    padding: 20px 20px;
+    padding: 10px 20px;
 `;
 
 const Section = styled.section`
@@ -18,7 +18,7 @@ const Section = styled.section`
 
 const Title = styled.h4`
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 20px;
 `;
 
@@ -52,24 +52,36 @@ const Content = styled.p`
     padding: 20px;
     text-align: left;
     font-size: 20px;
-    font-family: Hi Melody, serif;
-    font-weight: 400;
+    font-family: 'Sunflower', sans-serif;
     line-height: 2.5;
     white-space: pre-line;
+`;
+
+const AuthorWrapper = styled.div`
+    display: flex;
+    justify-content: end;
+`;
+
+const Author = styled.span`
+    text-align: right;
 `;
 
 interface IViewer {
     title?: string;
     content?: string;
     emotionId?: number;
+    author?: string;
 }
 
-function Viewer({ title, content, emotionId }: IViewer) {
+function Viewer({ title, content, emotionId, author }: IViewer) {
     const emotionItem = emotionList.find((emotion) => emotion.id === emotionId);
     const bgColor = emotionId ? getEmotionColorById(emotionId) : '#ececec';
 
     return (
         <Wrapper>
+            <AuthorWrapper>
+                <Author>작성자: {author}</Author>
+            </AuthorWrapper>
             <Section>
                 <Title>오늘의 감정</Title>
                 <ImgWrapper $bgColor={bgColor}>

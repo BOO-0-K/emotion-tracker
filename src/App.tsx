@@ -73,7 +73,7 @@ function App() {
     <>
       <Helmet>
         <title>DIARY</title>
-        <link href='https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap' rel='stylesheet'></link>
+        <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap" rel="stylesheet"></link>
       </Helmet>
       <Wrapper>
         <RouterProvider router={router} future={{ v7_startTransition: true }} />

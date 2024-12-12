@@ -15,7 +15,7 @@ const EditorSection = styled.div`
 
 const Title = styled.h4`
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 500;
 `;
 
 const InputWrapper = styled.div`
@@ -25,7 +25,7 @@ const InputWrapper = styled.div`
         border-radius: 5px;
         background-color: ${(props) => props.theme.inputColor};
         font-size: 20px;
-        font-family: Hi Melody, serif;
+        font-family: 'Sunflower', sans-serif;
     }
 `;
 
@@ -137,7 +137,12 @@ function Editor({ initData, onSubmit, disabled }: IEditor) {
             <EditorSection>
                 <Title>오늘의 한 줄 요약</Title>
                 <InputWrapper>
-                    <Input type="text" value={state.title} onChange={handleChangeTitle} />
+                    <Input 
+                        type="text" 
+                        value={state.title} 
+                        onChange={handleChangeTitle} 
+                        placeholder='오늘 하루는 어땠나요?'
+                    />
                 </InputWrapper>
             </EditorSection>
             <EditorSection>
@@ -161,7 +166,7 @@ function Editor({ initData, onSubmit, disabled }: IEditor) {
                 <Title>오늘의 일기</Title>
                 <InputWrapper>
                     <Textarea
-                        placeholder='오늘 하루는 어땠나요?'
+                        placeholder='더 자세히 들려주세요!'
                         value={state.content}
                         onChange={handleChangeContent}
                     />

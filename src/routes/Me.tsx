@@ -22,7 +22,7 @@ const Form = styled.form`
 
 const Title = styled.h4`
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 500;
 `;
 
 const InputWrapper = styled.div`
@@ -36,7 +36,7 @@ const Input = styled.input`
     border-radius: 5px;
     background-color: ${(props) => props.theme.inputColor};
     font-size: 20px;
-    font-family: Hi Melody, serif;
+    font-family: 'Sunflower', sans-serif;
     padding: 10px;
 `;
 
@@ -45,7 +45,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const Error = styled.span`
-    font-weight: 600;
+    font-weight: 500;
     color: ${(props) => props.theme.negativeColor};
 `;
 

@@ -76,7 +76,7 @@ function Diary() {
             /> 
             {
                 data && !isLoading ? (
-                    <Viewer title={data?.title} content={data?.content} emotionId={data?.status} />
+                    <Viewer title={data?.title} content={data?.content} emotionId={data?.status} author={data?.username} />
                 ) : (
                     <Loading />
                 )

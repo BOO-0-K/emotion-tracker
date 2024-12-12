@@ -36,7 +36,7 @@ const InfoWrapper = styled.div`
 `;
 
 const Date = styled.div`
-    font-weight: 600;
+    font-weight: 500;
     font-size: 25px;
     margin-bottom: 5px;
 `;
@@ -47,7 +47,7 @@ const Title = styled.div`
 `;
 
 const Author = styled.div`
-    font-size: 12px;
+    font-size: 14px;
     opacity: 0.8;
 `;
 

@@ -12,6 +12,7 @@ const SHeader = styled.div`
 const SHeaderCenterItem = styled.div`
     display: flex;
     font-size: 25px;
+    font-weight: 700;
     width: 50%;
     justify-content: center;
 `;
